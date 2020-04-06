@@ -12,75 +12,9 @@ var people= [{
 
 ]
 
-var allfoods = [{
-       name :"Matooke",
-       price : 0,
-       description :""
-},
 
-{
-    name:"Rice",
-    price : 0,
-    description :""
-},
-{
-    name :"Posho",
-    price : 0,
-    description :""
-},
-{
-    name :"Potatoes",
-    price : 0,
-    description :"" 
-},
-{
-    name :"Cassava",
-    price : 0,
-    description :""
-},
-{
-    name :"Yams",
-    price : 0,
-    description :""
-},
-{
-    name : "Chips",
-    price : 5000,
-    description:""
-},
-{
-    name:"Liver",
-    price : 6000,
-    description:""
-},
-{
-    name :"Beef",
-    price : 6000,
-    description:""
-},
-{
-    name:"Chicken",
-    price : 8000,
-    description:""
-},
-{
-    name :"Beans",
-    price : 5000,
-    description :""
-},
-{
-    name: "Gnuts",
-    price : 3000,
-    description :""
-},
-{
-    name :"Gravy",
-    price : 1000,
-    description: ""
-}
-
-]
 text =""
+const LIST = []
 
 function login(){
     var username = document.getElementById("username").value
@@ -96,7 +30,7 @@ function login(){
     
 }
 var selected = new Array();
-var totalprice = ""
+var totalprice = 0
 
 
 function register(){
@@ -106,92 +40,118 @@ function register(){
     var password = document.getElementById("password").value
 }
 var button = document.createElement("button");
-button.innerHTML = "Do Something";
-function displayfood(){
-
-    var list = document.createElement('div');
-
-    for (var i = 0; i < allfoods.length; i++) {
-        // Create the list item:
-        var item = document.createElement('ul');
-         var itemchild = document.createElement('li')
-        // Set its contents:
-        var itemchild1= itemchild.appendChild(document.createTextNode(allfoods[i].name));
-        var itemchild1= itemchild.appendChild(document.createTextNode(allfoods[i].price));
-        var itemchild1= itemchild.appendChild(document.createTextNode(allfoods[i].description));
-
-
-        // Add it to the list:
-        list.appendChild(itemchild1);
-        // list.appendChild(price)
-        // list.appendChild(description)
-    }
-
-    // Finally, return the constructed list:
-    return list;
-
-}
-// document.getElementById('foo').appendChild(displayfood(allfoods[0]));
+button.innerHTML = "Do Something";  
 var chks = document.getElementsByTagName("INPUT");
+var list = document.getElementById("list")
 var current;
 text=""
-function order(){
-        //Create an Array.
-        var li = document.createElement("li");
-        var totalprice = 0
-         text ="<ul>"
-        
-        var obj ={}
- 
-        //Reference the Table.
-        // var tblFruits = document.getElementById("tblFruits");
- 
-        //Reference all the CheckBoxes in Table.
-        console.log(chks)
-        
-        // Loop and push the checked CheckBox value in Array.
-        for (var i = 0; i < chks.length; i++) {
-            if (chks[i].checked) {
-                // obj["name"] = chks[i].name
-                // obj["price"] = chks[i].value
-                // // console.log(JSON.stringify(selected))
-        li.setAttribute('id',chks[i].value);
-
-                selected.push(chks[i].name)
-                totalprice +=  + parseInt(chks[i].value) 
-                current = chks[i]
-                console.log(current)
-                // li.setAttribute(id, chks[i].name)
-                 text += "<li>" + "<b>" + chks[i].name + "</b>" + "<span>" + chks[i].value + "</span>" +"</li>";
-                
-                 //  var rm = document.getElementById('remove')
-                //  rm.onclick = function(){
-                //      console.log("go")
-                //  }
-               
-            }
-        }
-console.log(totalprice)
-
-        text += "</ul>";
-        // console.log( totalprice + JSON.stringify(selected))
-        // return totalprice
-
- 
-        //Display the selected CheckBox values.
-        // if (selected.length > 0) {
-        //     alert("Selected values: " + selected.join(","));
-        // }
-document.getElementById("demo").innerHTML = text;
-document.getElementById("total").innerHTML = totalprice;
-// document.getElementById( "remove" ).onclick = function() {
-//     removefoods(selected, i);
-//    };
-
-
+function order(){ 
+    LIST.forEach(function (arrayItem) {
+        var x = arrayItem.name;
+         id = LIST.indexOf(arrayItem)
+        const item = 
+        `<li class="selecteditem">
+        <a><i class="text ">${arrayItem.name}</i>
+        <i class="co">${arrayItem.price}</i>
+        <i class="fa fa-trash-o de" job="remove" id=${id}></i>
+        </a>
+      </li>
+    `;
+    const position = "beforeend"
+      list.insertAdjacentHTML(position, item)
+      
+    });
+    
+    document.getElementById("total").innerHTML = totalprice;
+   
    
 }
 
+document.addEventListener("click", function(e){
 
+        // if(e.selected){
+            console.log(e)
+
+            var selectedItem = e.target
+            var name = selectedItem.name;
+            var price = selectedItem.value;
+
+            if(selectedItem.checked){
+            console.log("selectedItem")
+            
+           LIST.push({
+                name: name,
+                price : price
+            });
+            totalprice += parseInt(price)
+            console.log(LIST, totalprice)
+            }
+            else{
+                if(LIST.length != 0){
+                   
+             LIST.forEach(function (arrayItem) {
+                var x = arrayItem.name;
+               
+                if(x == name){
+                    const index = LIST.indexOf(arrayItem)
+                    LIST.splice(index, 1);
+                    totalprice -= price
+                    console.log(LIST, totalprice)
+                }
+            });
+                 console.log(LIST)
+            //  if(element.name == name){
+            //      console.log("Am out")
+            //  }
+
+            }}
+            // addTodo(todo, id, false, false);
+            // LIST.push({
+            //     name: todo,
+            //     id: id,
+            //     done: false,
+            //     trash: false
+            // });
+            // id++
+        // }
+        // input.value = ""
+    
+
+});
+
+var listItems = document.querySelectorAll("ul li");
+
+listItems.forEach(function(item) {
+  item.onclick =  function(){
+   
+   console.log(item)
+}
+});
+
+list.addEventListener("click", function(even){
+    const element = event.target
+    const elementjob = element.attributes.job.value;
+
+    if(elementjob == 'remove'){
+        removeTodo(element);
+    }
+
+})
+
+function removeTodo(element){
+    element.parentNode.parentNode.remove(element.parentNode)
+
+    LIST[element.id].trash = true;
+    LIST.forEach(function (arrayItem) {
+        var x = arrayItem.name;
+       
+        if(arrayItem.trash){
+            const index = LIST.indexOf(arrayItem)
+            LIST.splice(index, 1);
+            console.log(LIST)
+        }
+
+});
+}
 
 

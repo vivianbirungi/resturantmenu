@@ -173,3 +173,14 @@ h2{
 .value{
     float: right;
 }
+.selecteditem{
+  /* display: inline;
+  flex-direction: row; */
+  overflow: hidden;
+    white-space: nowrap;
+}
+
+.selecteditem i{
+  padding-left:10px;
+
+}
