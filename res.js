@@ -1,44 +1,15 @@
-var people= [{
-      username:"vivian",
-      password :"12345"
-}, {
-    username:"pat",
-    password :"12345"
-},
-{
-    username:"jenny",
-    password :"12345"
-}
 
-]
 
 
 text =""
 const LIST = []
 
-function login(){
-    var username = document.getElementById("username").value
-    var password = document.getElementById("password").value
-    for(i=0; i< people.length; i++){
-        if(username == people[i].username && password == people[i].password){
-            console.log(username , "you are logged in")
-            window.location = "menu.html";
-        }
-      
-    }
-   console.log("Wrong username and Password")
-    
-}
+
 var selected = new Array();
 var totalprice = 0
 
 
-function register(){
-    var fname = document.getElementById("fname").value
-    var lname = document.getElementById("lname").value
-    var username = document.getElementById("username").value
-    var password = document.getElementById("password").value
-}
+
 var button = document.createElement("button");
 button.innerHTML = "Do Something";  
 var chks = document.getElementsByTagName("INPUT");
